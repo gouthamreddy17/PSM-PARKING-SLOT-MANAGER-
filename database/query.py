@@ -270,6 +270,23 @@ def slots_count_from_db():
             return result_count
         except Exception as e:
             return f"something went wrong in repotrs {e}"
+        
+        
+def get_staff_from_db():
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            get_staff_query="""select * from users where role = 'staff'"""
+            cursor.execute(get_staff_query)
+            result=cursor.fetchall()
+            cursor.close()
+            connection.close()
+            return result
+        except Exception as e:
+            return f"somthing went wrong in gettting staff {e}"
     
     
     

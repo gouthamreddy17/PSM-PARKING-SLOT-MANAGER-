@@ -197,6 +197,65 @@ def reports():
     result_count=slots_count_from_db()
     return render_template('reports.html',user=user,result=result,result_count=result_count) 
 
+@app.route('/admin/manage_staff')
+def manage_staff():
+    user=session.get('user')
+    result=get_staff_from_db()
+    return render_template('manage_staff.html',user=user,result=result)
+
+@app.route('/admin/manage_staff/register_staff',methods=['GET','POST'])
+def register_staff():
+    user=session.get('user')
+    if request.method=='GET':
+        
+        return render_template('register_staff.html',user=user)
+    else:
+        name= request.form.get('name')
+        email=request.form.get('email')
+        password=request.form.get('password')
+        phone=request.form.get('phone')
+        confirmpassword=request.form.get('confirmpassword')
+        
+        if password !=confirmpassword:
+            return render_template('register_staff.html',user=user,msg="password not match")
+        result,msg=insertusersfromsignup(name=name,email=email,password=password,phone=phone)
+        print(result,msg)
+        if result==True:
+            return render_template('manage_staff.html',user=user,msg=msg)
+        else:
+            return render_template('register_staff.html',user=user,msg=msg)
+        
+@app.route('/admin/manage_staff/edit_staff/<int:id>',methods=['GET','POST'])
+def edit_staff(id):
+    user=session.get('user')
+    user_id=get_user_by_id(id)
+    if request.method=="GET":
+        return render_template('edit_staff.html',user_id=user_id,user=user)
+    else:
+        name=request.form.get('name')
+        email=request.form.get('email')
+        phone=request.form.get('phone')
+        result,msg=update_user(id,name,email,phone)
+        if result==True:
+            return redirect(url_for('manage_staff'))
+        else:
+            user_id=get_user_by_id(id)
+            return render_template('edit_staff.html',user_id=user_id,msg=msg,user=user)
+        
+@app.route('/admin/manage_staff/delete_staff/<int:id>',methods=['GET','POST'])
+def delete_staff(id):
+    user=session.get('user')
+    
+    if request.method=='GET':
+        user_id=get_user_by_id(id)
+        return render_template('delete_staff.html',user_id=user_id,user=user)
+    else:
+        result,msg=delete_user_from_db(id)
+        if result==True:
+            return redirect(url_for('manage_staff'))
+        else:
+            user_id=get_user_by_id(id)
+            return render_template('delete_staff.html',user_id=user_id,msg=msg,user=user)
     
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

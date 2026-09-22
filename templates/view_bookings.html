@@ -13,12 +13,12 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
-            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link active links" aria-current="page" href="{{url_for('admin_dashboard')}}">Dashboard</a>
             <a class="nav-link text-nowrap" href="{{url_for('manage_slots')}}">Manage slots</a>
-            <a class="nav-link text-nowrap" href="#">view Bookings</a>
+            <a class="nav-link text-nowrap" href="{{url_for('view_bookings')}}">view Bookings</a>
             <a class="nav-link" href="{{url_for('manage_users')}}">Users</a>
-            <a class="nav-link" href="#">Staff</a>
-            <a class="nav-link" href="#">Reports</a>
+            <a class="nav-link" href="{{url_for('manage_staff')}}">Staff</a>
+            <a class="nav-link" href="{{url_for('reports')}}">Reports</a>
             <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
             
 
@@ -30,7 +30,7 @@
 
         </div>
     </div>
-</nav>
+</nav>          
 {% endblock %}
 
 {% block content %}

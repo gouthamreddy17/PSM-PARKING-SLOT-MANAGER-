@@ -1,6 +1,6 @@
 {% extends "base.html" %}
  {% block title %}
-        Delete User
+        Delete Staff
         {% endblock %}
 {% block nav %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
@@ -67,9 +67,9 @@
                 <td>{{user_id.phone}}</td>
             </tr>
         </table>
-        <form action="{{url_for('delete_user',id=user_id.id)}}"  method="POST">
+        <form action="{{url_for('delete_staff',id=user_id.id)}}"  method="POST">
             <button type="submit" class="btn btn-danger">Confirm delete</button>
-            <a href="{{url_for('manage_users')}}"><button  type="button" class="btn btn-secondary">Back to manage Users</button></a>
+            <a href="{{url_for('manage_staff')}}"><button  type="button" class="btn btn-secondary">Back to manage staff</button></a>
 
         </form>
         

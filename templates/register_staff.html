@@ -1,6 +1,6 @@
 {% extends "base.html" %}
  {% block title %}
-        Delete User
+        Register Users
         {% endblock %}
 {% block nav %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
@@ -51,28 +51,46 @@
     </div>
 </div>
 
-<div class="d-flex  flex-column align-items-center justify-content-center p-5">
-        <table class="table table-striped   delete-tab">
-            <tr class="table-striped">
-                <th>ID</th>
-                <th> Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                
-            </tr>
-            <tr class="table-striped">
-                <td>{{user_id.id}}</td>
-                <td>{{user_id.name}}</td>
-                <td>{{user_id.email}}</td>
-                <td>{{user_id.phone}}</td>
-            </tr>
-        </table>
-        <form action="{{url_for('delete_user',id=user_id.id)}}"  method="POST">
-            <button type="submit" class="btn btn-danger">Confirm delete</button>
-            <a href="{{url_for('manage_users')}}"><button  type="button" class="btn btn-secondary">Back to manage Users</button></a>
+<div>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4"></div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <form action="{{url_for('register_user')}}" class="login-form" method="POST">
+                    <b class="fs-4">Register Account</b>
+                    <p>By Admin</p>
+                    
 
-        </form>
+                    <input type="text" placeholder="Usename" name="name">
+                    <input type="email" placeholder="Email" name="email">
+                    <input type="number" placeholder="Phone Number" name="phone">
+                    
+                    <input type="password" placeholder="Password" name="password">
+                    <input type="password" placeholder="confirm Password" name="confirmpassword">
+                    {% if msg %}
+                    <div class="errormsg">{{msg}}</div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-warning">Register staff</button>
+                    <a href="{{url_for('manage_staff')}}"><button type="button" class="btn btn-secondary">Back to Manage Users</button></a>
+                    
+                    
+                    <div class="icons-ab11">
+                        <i class="fa-solid fa-user fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab12">
+                       <i class="fa-solid fa-square-phone fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab13">
+                       <i class="fa-solid fa-envelope fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab44">
+                       <i class="fa-solid fa-user-lock fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab55">
+                       <i class="fa-solid fa-user-lock fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                </form>
+        </div>
         
     </div>
-
+</div>
 {% endblock %}
