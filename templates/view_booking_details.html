@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+ {% block title %}
+        Manage Users
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{{url_for('manage_slots')}}">Manage slots</a>
+            <a class="nav-link text-nowrap" href="#">view Bookings</a>
+            <a class="nav-link" href="{{url_for('manage_users')}}">Users</a>
+            <a class="nav-link" href="#">Staff</a>
+            <a class="nav-link" href="#">Reports</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">View <span class="text-warning">Parking Bookings<span class="welcome">!</span> </span></p>
+            <p class="text-white ">Track and manage all parking Bookings</p>
+            <p class="text-white ">View entry and exit details,vehicle info.</p>
+           
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<div>
+    <div class="d-flex  flex-column align-items-center justify-content-center p-5 user-re">
+        <table class="table table-striped   delete-tabs">
+            
+            <tr class=" table-striped">
+                <th>Record ID: </th>
+                <td>{{result.record_id}}</td> 
+            </tr>
+            <tr class=" table-striped">
+                <th>User ID: </th>
+                <td>{{result.user_id}}</td> 
+            </tr>
+            <tr>
+                <th>User Name: </th>
+                <td>{{result.user_name}}</td> 
+            </tr>
+            <tr>
+                <th>Phone: </th>
+                <td>{{result.phone}}</td> 
+            </tr>
+            <tr>
+                <th>Vehicle ID: </th>
+                <td>{{result.vehicle_id}}</td> 
+            </tr>
+            <tr>
+                <th>Vehicle Number: </th>
+                <td>{{result.vehicle_number}}</td> 
+            </tr>
+            <tr>
+                <th>vehicle Type: </th>
+                <td>{{result.vehicle_type}}</td> 
+            </tr>
+            <tr>
+                <th>Slot ID: </th>
+                <td>{{result.slot_id}}</td> 
+            </tr>
+            <tr>
+                <th>Slot Number: </th>
+                <td>{{result.slot_number}}</td> 
+            </tr>
+            <tr>
+                <th>Slot Status: </th>
+                <td>{{result.slot_status}}</td> 
+            </tr>
+            <tr>
+                <th>Entry Time: </th>
+                <td>{{result.entry_time}}</td> 
+            </tr>
+            <tr>
+                <th>Exit Time: </th>
+                <td>{{result.exit_time}}</td> 
+            </tr>
+            <tr>
+                <th>Parking Fee: </th>
+                <td>{{result.parking_fee}}</td> 
+            </tr>
+            <tr>
+                <th>Parking Status: </th>
+                <td>{{result.parking_status}}</td> 
+            </tr>
+            
+        </table>
+        <a href="{{url_for('view_bookings')}}"><button class="btn btn-secondary">Back to View Bookings</button></a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+ {% block title %}
+        Admin Dashboard
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{{url_for('manage_slots')}}">Manage slots</a>
+            <a class="nav-link text-nowrap" href="#">view Bookings</a>
+            <a class="nav-link" href="#">Users</a>
+            <a class="nav-link" href="#">Staff</a>
+            <a class="nav-link" href="#">Reports</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">Welcome Back <span class="text-warning">{{user['name']}} <span class="welcome">!</span> </span></p>
+            <p class="text-white ">Manage your parking system efficiently from one place.</p>
+            <p class="text-white ">Monitor parking slots, manage users and staff,</p>
+            <p class="text-white ">track vehicles, and view system reports.</p>
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<div class="row mt-3 ms-2 me-2">
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-car">
+            <div><i class="fa-solid fa-car fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i></div>
+            <div class="">
+                <h6>Total Slots</h6>
+                <b>count</b>
+                <p>Across all vehicle types</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-ava">
+            <div><i class="fa-solid fa-square-parking fa-2xl fa-width-auto" style="color: rgb(47, 239, 17);"></i></div>
+            <div class="">
+                <h6>Available Slots</h6>
+                <b>count</b>
+                <p>Slots currently free</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-occ">
+            <div><i class="fa-solid fa-car fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i></div>
+            <div class="">
+                <h6>Occupied Slots</h6>
+                <b>count</b>
+                <p>Currently in use</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-users">
+            <div><i class="fa-solid fa-users fa-xl fa-width-auto" style="color: rgb(239, 17, 97);"></i></div>
+            <div class="">
+                <h6>Total Users</h6>
+                <b>count</b>
+                <p>Registered users</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="quick-actions">
+    <div class="row">
+    <div class="col-12 col-sm-6 col-md-4">
+        <a href="" class="div-link">
+            <div class="add-slot">
+            <div><i class="fa-solid fa-car fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i></div>
+            <div class="">
+                <h6>Add Parking Slot</h6>
+                
+                <p>Create new parking slots for all vehicle types →</p>
+            </div>
+        </div>
+        </a>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <a href="" class="div-link">
+            <div class="man-user">
+            <div><i class="fa-regular fa-user fa-2xl fa-width-auto" style="color: rgb(255, 212, 59);"></i></div>
+            <div class="">
+                <h6>Manage Users</h6>
+                
+                <p>Add, update, or remove system users →</p>
+            </div>
+        </div>
+        </a>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <a href="" class="div-link">
+            <div class="report">
+            <div><i class="fa-solid fa-chart-simple fa-2xl fa-width-auto" style="color: rgb(125, 11, 200);"></i></div>
+            <div class="">
+                <h6>View Reports</h6>
+                
+                <p>Check usage, revenue, and activity reports →</p>
+            </div>
+        </div>
+        </a>
+    </div>
+
+</div>
+<div class="q-a-ab">
+    <i class="fa-solid fa-forward-fast fa-lg fa-width-auto" style="color: rgb(125, 11, 200);"></i><b> Quick Actions</b>
+</div>
+</div>
+
+{% endblock %}

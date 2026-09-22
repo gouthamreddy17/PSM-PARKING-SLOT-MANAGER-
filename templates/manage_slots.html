@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+ {% block title %}
+        Manage Slots
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{{url_for('manage_slots')}}">Manage slots</a>
+            <a class="nav-link text-nowrap" href="#">view Bookings</a>
+            <a class="nav-link" href="{{url_for('manage_users')}}">Users</a>
+            <a class="nav-link" href="#">Staff</a>
+            <a class="nav-link" href="#">Reports</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">Welcome Back <span class="text-warning">{{user['name']}} <span class="welcome">!</span> </span></p>
+            <p class="text-white ">Manage your parking system efficiently from one place.</p>
+            <p class="text-white ">Monitor parking slots, manage users and staff,</p>
+            <p class="text-white ">track vehicles, and view system reports.</p>
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<div class="row mt-3 ms-2 me-2">
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-car">
+            <div><i class="fa-solid fa-car fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i></div>
+            <div class="">
+                <h6>Total Slots</h6>
+                <b>count</b>
+                <p>Across all vehicle types</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-ava">
+            <div><i class="fa-solid fa-square-parking fa-2xl fa-width-auto" style="color: rgb(47, 239, 17);"></i></div>
+            <div class="">
+                <h6>Available Slots</h6>
+                <b>count</b>
+                <p>Slots currently free</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-occ">
+            <div><i class="fa-solid fa-car fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i></div>
+            <div class="">
+                <h6>Occupied Slots</h6>
+                <b>count</b>
+                <p>Currently in use</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-users">
+            <div><i class="fa-solid fa-users fa-xl fa-width-auto" style="color: rgb(239, 17, 97);"></i></div>
+            <div class="">
+                <h6>Total Users</h6>
+                <b>count</b>
+                <p>Registered users</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-manage">
+    <table class="table table-striped">
+        <tr class="table-striped">
+            <th>ID</th>
+            <th>Slot number</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+            
+        </tr>
+        {% for i in result %}
+        <tr class="table-striped">
+            <td>{{i.id}}</td>
+            <td>{{i.slot_number}}</td>
+            <td>{{i.vehicle_type}}</td>
+            {% if i.status=='Available' %}
+            <td class="text-success">{{i.status}}</td>
+            {% else  %}
+            <td class="text-danger">{{i.status}}</td>
+            {% endif %}
+            <td>
+                <a href="{{url_for('edit_slot',id=i.id)}}"><button class="btn btn-outline-primary">Edit</button> </a>
+                <a href="{{url_for('delete_slot',id=i.id)}}"><button class="btn btn-outline-danger">Delete</button></a>
+                
+            </td>
+        </tr>
+        {%  endfor %}
+    </table>
+    <div class="table-ab"><a href="{{url_for('add_slot')}}"><button class="btn btn-success">+ Add Slot</button></a></div>
+</div>
+{% endblock %}

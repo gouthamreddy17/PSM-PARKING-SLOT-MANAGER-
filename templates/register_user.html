@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+ {% block title %}
+        Register Users
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{{url_for('manage_slots')}}">Manage slots</a>
+            <a class="nav-link text-nowrap" href="#">view Bookings</a>
+            <a class="nav-link" href="{{url_for('manage_users')}}">Users</a>
+            <a class="nav-link" href="#">Staff</a>
+            <a class="nav-link" href="#">Reports</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">Manage <span class="text-warning">Users<span class="welcome">!</span> </span></p>
+            <p class="text-white ">View,add,update or remove users from the system</p>
+            <p class="text-white ">Keep your system secure and organized.</p>
+           
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4"></div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <form action="{{url_for('register_user')}}" class="login-form" method="POST">
+                    <b class="fs-4">Register Account</b>
+                    <p>By Admin</p>
+                    
+
+                    <input type="text" placeholder="Usename" name="name">
+                    <input type="email" placeholder="Email" name="email">
+                    <input type="number" placeholder="Phone Number" name="phone">
+                    
+                    <input type="password" placeholder="Password" name="password">
+                    <input type="password" placeholder="confirm Password" name="confirmpassword">
+                    {% if msg %}
+                    <div class="errormsg">{{msg}}</div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-warning">Register User</button>
+                    <a href="{{url_for('manage_users')}}"><button type="button" class="btn btn-secondary">Back to Manage Users</button></a>
+                    
+                    
+                    <div class="icons-ab11">
+                        <i class="fa-solid fa-user fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab12">
+                       <i class="fa-solid fa-square-phone fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab13">
+                       <i class="fa-solid fa-envelope fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab44">
+                       <i class="fa-solid fa-user-lock fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab55">
+                       <i class="fa-solid fa-user-lock fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                </form>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

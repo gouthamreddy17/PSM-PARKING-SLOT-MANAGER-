@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3">
+            <a class="nav-link active links" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#"><button class="text-nowrap btn btn-warning">LOGIN</button></a>
+            <a class="nav-link " href="{{url_for('signup')}}"><button class="text-nowrap btn btn-warning"> SIGN UP</button></a>
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="hero">
+    <p class="welcome">Welcome to <span class="text-warning">PSM</span></p>
+    <b class="fs-1 text-white">PARKING SLOT MANAGER</b>
+    <p class="text-white fs-5">A smart and efficient solution for managing parking spaces for a cleaner, safer, and
+        smarter tomorrow.</p>
+    <button class="btn btn-warning me-5">Get Started →</button> <button class="btn btn-warning"> Learn More</button>
+</div>
+<div>
+    <div class="row g-4 px-2">
+        
+            <div class="col-12 col-sm-6 col-md-3 ">
+                <div class="background-card">
+                    <div class="d-flex flex-column justify-content-center align-items-center p-1 gap-3"><b>Real-Time
+                        Availability</b>
+                    <p>Check available parking slots instantly.</p>
+                </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 ">
+                <div class="background-card">
+                    <div class="d-flex flex-column justify-content-center align-items-center p-1 gap-3"><b>Secure & Reliable</b>
+                    <p>Your vehicle's safety is our priority.</p>
+                </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 ">
+                <div class="background-card">
+                    <div class="d-flex flex-column justify-content-center align-items-center p-1 gap-3"><b>Efficient Management</b>
+                    <p>Smart solutions for better space utilization..</p>
+                </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 ">
+                <div class="background-card">
+                    <div class="d-flex flex-column justify-content-center align-items-center p-1 gap-3"><b>A Cleaner Tomorrow</b>
+                    <p>Less congestion, less pollution</p>
+                </div>
+                </div>
+            </div>
+        
+    </div>
+</div>
+{% endblock %}

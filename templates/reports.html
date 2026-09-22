@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+ {% block title %}
+        Reports
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{{url_for('manage_slots')}}">Manage slots</a>
+            <a class="nav-link text-nowrap" href="{{url_for('view_bookings')}}">view Bookings</a>
+            <a class="nav-link" href="{{url_for('manage_users')}}">Users</a>
+            <a class="nav-link" href="#">Staff</a>
+            <a class="nav-link" href="{{url_for('reports')}}">Reports</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">System <span class="text-warning">Reports<span class="welcome">!</span> </span></p>
+            <p class="text-white ">Get Insights about your parking system</p>
+            <p class="text-white ">Analyse usage,activity with detailse reports</p>
+           
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+    ["Vehicle Type", "Occupied", {role: "style"}],
+
+    {% for i in result %}
+    ["{{ i.vehicle_type }}", {{ i.total|int }}, "blue"],
+    {% endfor %}
+]); 
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Occuiped by vehicle Type",
+        width: 600,
+        height: 400,
+        vAxis: {
+        ticks: [0, 1, 2, 3,4,5,6,7,8,9]
+    },
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
+<script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['status', 'count'],
+          {% for i in result_count %}
+          ['{{i.status}}',{{i.count}}],
+          {% endfor %}
+        ]);
+
+        var options = {
+          title: 'Slot Occupancy',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+
+<div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6">
+            <div>
+                <div id="barchart_values"></div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6">
+            <div class="donut">
+                <div id="donutchart" class="donutchart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

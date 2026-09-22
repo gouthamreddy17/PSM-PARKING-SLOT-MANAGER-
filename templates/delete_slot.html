@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+ {% block title %}
+        Manage Slots
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{{url_for('manage_slots')}}">Manage slots</a>
+            <a class="nav-link text-nowrap" href="#">view Bookings</a>
+            <a class="nav-link" href="#">Users</a>
+            <a class="nav-link" href="#">Staff</a>
+            <a class="nav-link" href="#">Reports</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">Welcome Back <span class="text-warning">{{user['name']}} <span class="welcome">!</span> </span></p>
+            <p class="text-white ">Manage your parking system efficiently from one place.</p>
+            <p class="text-white ">Monitor parking slots, manage users and staff,</p>
+            <p class="text-white ">track vehicles, and view system reports.</p>
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<div>
+    <div class="d-flex  flex-column align-items-center justify-content-center p-5">
+        <table class="table table-striped   delete-tab">
+            <tr class="table-striped">
+                <th>ID</th>
+                <th>Slot Number</th>
+                <th>status</th>
+                
+            </tr>
+            <tr class="table-striped">
+                <td>{{slot.id}}</td>
+                <td>{{slot.slot_number}}</td>
+                <td>{{slot.status}}</td>
+            </tr>
+        </table>
+        <form action="{{url_for('delete_slot',id=slot.id)}}" method="POST">
+            <button type="submit" class="btn btn-danger">Confirm delete</button>
+            <a href="{{url_for('manage_slots')}}"><button type="button"  class="btn btn-secondary">Cancel</button></a>
+            
+        </form>
+    </div>
+</div>
+{% endblock %}

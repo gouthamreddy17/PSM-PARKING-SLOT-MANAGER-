@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+ {% block title %}
+        Signup
+        {% endblock %}
+
+
+
+ {% block nav %}
+ <nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3">
+            <a class="nav-link active links" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#"><button class="text-nowrap btn btn-warning">Back to Home</button></a>
+            
+
+        </div>
+    </div>
+</nav>
+{% endblock %}       
+{% block content %}
+<div class="login-background">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-6">
+            <div class="login1">
+                <p class="welcome"><span class="text-warning fw-bold">PSM</span></p>
+                <p class="fs-1 text-white fw-bold">PARK SMART</p>
+                <p class="fs-1 text-white fw-bold">LIVE BETTER</p>
+                <hr class="hr1">
+                <p class="fs-4 text-white">A cleaner, safer and smarter parking experience for everyone.</p>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-6">
+            <div class="p-5">
+                
+                <form action="/signup" class="login-form" method="POST">
+                    <b class="fs-4">Create Account</b>
+                    <p>Join PSM Today</p>
+                    
+
+                    <input type="text" placeholder="Usename" name="name">
+                    <input type="email" placeholder="Email" name="email">
+                    <input type="number" placeholder="Phone Number" name="phone">
+                    
+                    <input type="password" placeholder="Password" name="password">
+                    <input type="password" placeholder="confirm Password" name="confirmpassword">
+                    {% if msg %}
+                    <div class="errormsg">{{msg}}</div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-warning">SignUp</button>
+                    
+                    <p>Already have an account? <a href="#">Login</a></p>
+                    <div class="icons-ab11">
+                        <i class="fa-solid fa-user fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab12">
+                       <i class="fa-solid fa-square-phone fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab13">
+                       <i class="fa-solid fa-envelope fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab44">
+                       <i class="fa-solid fa-user-lock fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                    <div class="icons-ab55">
+                       <i class="fa-solid fa-user-lock fa-xl" style="color: rgb(92, 91, 101);"></i>
+                    </div>
+                </form>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

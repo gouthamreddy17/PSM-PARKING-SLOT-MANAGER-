@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+ {% block title %}
+        Manage Users
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{{url_for('manage_slots')}}">Manage slots</a>
+            <a class="nav-link text-nowrap" href="{{url_for('view_bookings')}}">view Bookings</a>
+            <a class="nav-link" href="{{url_for('manage_users')}}">Users</a>
+            <a class="nav-link" href="#">Staff</a>
+            <a class="nav-link" href="{{url_for('reports')}}">Reports</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">Manage <span class="text-warning">Users<span class="welcome">!</span> </span></p>
+            <p class="text-white ">View,add,update or remove users from the system</p>
+            <p class="text-white ">Keep your system secure and organized.</p>
+           
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<div>
+    <div class="d-flex  flex-column align-items-center justify-content-center p-5 user-re">
+        <table class="table table-striped   delete-tab">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+            {% for i in result %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.phone}}</td>
+                <td>{{i.created_at}}</td>
+                <td>
+                    <a href="{{url_for('edit_user',id=i.id)}}">
+                        <button class="btn btn-outline-primary me-3">Edit</button>
+                    </a>
+                    <a href="{{url_for('delete_user',id=i.id)}}">
+                        <button class="btn btn-outline-danger">Delete</button>
+                    </a>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+            <div class="user-ab" ><a href="{{url_for('register_user')}}"><button class="btn btn-success">+ Register User</button></a></div>
+        </table>
+        
+    </div>
+
+</div>
+{% endblock %}

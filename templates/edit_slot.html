@@ -1,0 +1,90 @@
+ {% extends "base.html" %}
+ {% block title %}
+        Edit Slot
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{{url_for('manage_slots')}}">Manage slots</a>
+            <a class="nav-link text-nowrap" href="#">view Bookings</a>
+            <a class="nav-link" href="#">Users</a>
+            <a class="nav-link" href="#">Staff</a>
+            <a class="nav-link" href="#">Reports</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">Welcome Back <span class="text-warning">{{user['name']}} <span class="welcome">!</span> </span></p>
+            <p class="text-white ">Manage your parking system efficiently from one place.</p>
+            <p class="text-white ">Monitor parking slots, manage users and staff,</p>
+            <p class="text-white ">track vehicles, and view system reports.</p>
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<div>
+    <div class="form-add">
+        <form action="{{ url_for('edit_slot',id=slot.id) }}" class="form-add1" method="POST">
+            {% if msg %}
+                    <div class="errormsg">{{msg}}</div>
+                    {% endif %}
+            <label for="">Slot Number</label>
+            <input type="text" name="slot_number" id="" placeholder=" eg: B-101,C-201"  value="{{slot.slot_number}}" required >
+            <label for="">Vehicle Type</label>
+            <select name="type" id=""   required >
+                <option value="Bike">
+                    {% if slot.vehicle_type=="Bike" %}selected{% endif %} Bike
+                </option>
+                <option value="Car">
+                    {% if slot.vehicle_type=="Car" %}selected{% endif %} Car
+                </option>
+                <option value="Truck">
+                    {% if slot.vehicle_type=="Truck" %}selected{% endif %} Truck
+                </option>
+                
+            </select>
+            <label for="">Status</label>
+            <select name="status" id="" required>
+                
+                <option value="Available">
+                    {% if slot.status=="Available" %}selected{% endif %} Available
+                </option>
+                <option value="Occupied">
+                    {% if slot.status=="Occupied" %}selected{% endif %} Occupied
+                </option>
+                
+            </select>
+            <div class="d-flex justify-content-between pt-4">
+                <a href="{{url_for('manage_slots')}}"><button type="button"  class="btn btn-secondary">Back to manage slots</button></a>
+                <button type="submit"  class="btn btn-primary">Update slot</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
