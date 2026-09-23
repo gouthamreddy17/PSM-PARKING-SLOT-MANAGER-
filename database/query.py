@@ -287,10 +287,35 @@ def get_staff_from_db():
             return result
         except Exception as e:
             return f"somthing went wrong in gettting staff {e}"
+        
+
+def get_vehicle_by_number(vehicle_number):
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            vehicle_number_query="""select * from vehicles where vehicle_number=%s"""
+            cursor.execute(vehicle_number_query,(vehicle_number,))
+            result=cursor.fetchone()
+            return result
+        except Exception as e:
+            return f"somthing went wrong in register vehicle {e}"
     
-    
-    
-    
+def get_parking_slots_by_type(vehicle_type):
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            vehicle_type_query="""select * from parking_slots where vehicle_type=%s and status='Available'"""
+            cursor.execute(vehicle_type_query,(vehicle_type,))
+            result=cursor.fetchall()
+            return result
+        except Exception as e:
+            return f"something went wrong in getting slots {e}"
     
     
         

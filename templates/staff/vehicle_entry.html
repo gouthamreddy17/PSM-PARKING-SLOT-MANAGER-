@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+ {% block title %}
+        Staff Dashboard
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{url_for('vehicle_entry')}">Entry/Exit</a>
+            <a class="nav-link text-nowrap" href="#">view Bookings</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b class="text-nowrap">{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">Vehicle <span class="text-warning">Entry <span class="welcome">!</span> </span></p>
+            <p class="text-white ">Register a new vehicle entry and assign a parking slot</p>
+            <p class="text-white ">Help us to keep the parking space organized  and efficient</p>
+            
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<div>
+    <div class="entry_div">
+        <form action="{{url_for('vehicle_entry')}}" class="entry-form" method="POST">
+            <div>
+                {% if msg %}
+                <div><p class="text-danger">{{msg}}</p></div>
+                {% endif %}
+            <label for="vehicle_number">vehicle Number *</label>
+            <input type="text" name="vehicle_number" id="vehicle_number">
+            </div>
+            <div class="d-flex">
+            <label for="vehicle_type">vehicle_Type</label>
+            <select name="vehicle_type" id="vehicle_type">
+                <option value="Bike">Bike</option>
+                <option value="Car">Car</option>
+                <option value="Truck">Truck</option>
+            </select>
+            
+            </div>
+            <a href=""><button class="btn btn-primary" type="submit">Button Show avalible slots</button></a>
+            <p>If Vehicle not registerd  <a href="#">register here</a></p>
+            </div>
+        </form>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center">
+        <div class="det-div">
+        {% if vehicle %}
+        <strong class="text-success">Vehicle Found</strong>
+        <b>Vehicle Number:   {{vehicle.vehicle_number}}</b>
+        <b> vehicle Type : {{vehicle.vehicle_type}}</b>
+        {% endif %}
+    </div>
+    </div>
+    {% if slots %}
+        <b>avalible slots for your vehicle is </b>
+        
+    <div class="ava">
+        {% for i in slots %}
+        <div class="ava-slots">
+            <p>{{i.slot_number}}</p>
+            <p>{{i.vehicle_type}}</p>
+            <p>{{i.status}}</p>
+            <a href="#"><button class="btn btn-danger"> Park Here</button></a>
+        </div>
+        {%  endfor %}
+    </div>
+    {% endif %}
+    
+</div>
+{% endblock %}

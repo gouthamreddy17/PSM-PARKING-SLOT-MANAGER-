@@ -50,7 +50,7 @@ def login():
             elif user['role']=='user':
                 return redirect(url_for('user_dashboard'))
             elif user['role']=='staff':
-                return redirect(url_for('user_dashboard'))
+                return redirect(url_for('staff_dashboard'))
         else:
             return render_template('login.html',msg=msg)
 
@@ -256,6 +256,29 @@ def delete_staff(id):
         else:
             user_id=get_user_by_id(id)
             return render_template('delete_staff.html',user_id=user_id,msg=msg,user=user)
+
+
+# ================staff =============
+@app.route('/staff/staff_dashboard')
+def staff_dashboard():
+    user=session.get('user')
+    return render_template('staff/staff_dashboard.html',user=user)
+
+
+@app.route('/staff/vehicle_entry',methods=['GET','POST'])
+def vehicle_entry():
+    user=session.get('user')
     
+    if request.method=='GET':
+        return render_template('staff/vehicle_entry.html',user=user)
+    else:
+        vehicle_number=request.form.get('vehicle_number')
+        vehicle_type=request.form.get('vehicle_type')
+        
+        vehicle=get_vehicle_by_number(vehicle_number)
+        if vehicle is None:
+            return render_template('staff/vehicle_entry.html',user=user,msg="Vehicle Not registerd Plese register the vehicle first") 
+        slots=get_parking_slots_by_type(vehicle_type)
+        return render_template('staff/vehicle_entry.html',slots=slots,user=user,vehicle=vehicle)
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
