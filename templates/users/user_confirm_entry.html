@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+ {% block title %}
+        Staff Dashboard
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="#">Book a slot</a>
+            <a class="nav-link text-nowrap" href="#">My Bookings</a>
+            <a class="nav-link text-nowrap" href="#">Parking History</a>
+            
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b class="text-nowrap">{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">Vehicle <span class="text-warning">Entry <span class="welcome">!</span> </span></p>
+            <p class="text-white ">Register a new vehicle entry and assign a parking slot</p>
+            <p class="text-white ">Help us to keep the parking space organized  and efficient</p>
+            
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <div>
+        <h2>Confirm vehicle entry</h2>
+
+        <b>Vehicle Number:   {{vehicle.vehicle_number}}</b>
+        <b> vehicle Type : {{vehicle.vehicle_type}}</b>
+        
+        <b>Parking Slot:   {{slot.slot_number}}</b>
+        
+    </div>
+    <form action="{{ url_for('user_confirm_entry') }}" method="POST">
+
+        <input type="hidden"
+               name="vehicle_id"
+               value="{{ vehicle.id }}">
+
+        <input type="hidden"
+               name="slot_id"
+               value="{{ slot.id }}">
+
+        <button type="submit" class="btn btn-success">
+            Confirm Entry
+        </button>
+
+        <a href="{{ url_for('user_vehicle_entry') }}"
+           class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+</div>
+{% endblock %}
