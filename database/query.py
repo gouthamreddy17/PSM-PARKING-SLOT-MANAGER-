@@ -302,6 +302,20 @@ def get_vehicle_by_number(vehicle_number):
             return result
         except Exception as e:
             return f"somthing went wrong in register vehicle {e}"
+        
+def get_vehicle_by_id(id):
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            vehicle_number_query="""select * from vehicles where id=%s"""
+            cursor.execute(vehicle_number_query,(id,))
+            result=cursor.fetchone()
+            return result
+        except Exception as e:
+            return f"somthing went wrong in register vehicle {e}"
     
 def get_parking_slots_by_type(vehicle_type):
     connection=DatabaseConnection()
@@ -317,6 +331,74 @@ def get_parking_slots_by_type(vehicle_type):
         except Exception as e:
             return f"something went wrong in getting slots {e}"
     
+def insert_parking_record(user_id, vehicle_id, slot_id):
+
+    connection = DatabaseConnection()
+
+    if connection == "Connection Failed":
+        return False
+
+    try:
+
+        cursor = connection.cursor()
+
+        query = """
+            INSERT INTO parking_records
+            (user_id, vehicle_id, slot_id, entry_time, status)
+            VALUES (%s, %s, %s, NOW(), 'Parked')
+        """
+
+        cursor.execute(
+            query,
+            (user_id, vehicle_id, slot_id)
+        )
+
+        connection.commit()
+
+        cursor.close()
+        connection.close()
+
+        return True
+
+    except Exception as e:
+
+        print("Error inserting parking record:", e)
+
+        return False
+    
+    
+def update_slot_status(slot_id):
+
+    connection = DatabaseConnection()
+
+    if connection == "Connection Failed":
+        return False
+
+    try:
+
+        cursor = connection.cursor()
+
+        query = """
+            UPDATE parking_slots
+            SET status = 'Occupied'
+            WHERE id = %s
+            AND status = 'Available'
+        """
+
+        cursor.execute(query, (slot_id,))
+
+        connection.commit()
+
+        cursor.close()
+        connection.close()
+
+        return True
+
+    except Exception as e:
+
+        print("Error updating slot:", e)
+
+        return False
     
         
     

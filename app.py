@@ -65,6 +65,10 @@ def user_dashboard():
 @app.route('/admin/admin_dashboard')
 def admin_dashboard():
     user=session.get('user')
+    if not user:
+        return redirect(url_for('login'))
+    if user['role'] != 'admin':
+        return redirect(url_for('login'))
     return render_template('admin_dashboard.html',user=user)
 @app.route('/admin/manage_slots')
 def manage_slots():
@@ -269,6 +273,9 @@ def staff_dashboard():
 def vehicle_entry():
     user=session.get('user')
     
+    if not user:
+        return redirect(url_for('login'))
+    
     if request.method=='GET':
         return render_template('staff/vehicle_entry.html',user=user)
     else:
@@ -280,5 +287,45 @@ def vehicle_entry():
             return render_template('staff/vehicle_entry.html',user=user,msg="Vehicle Not registerd Plese register the vehicle first") 
         slots=get_parking_slots_by_type(vehicle_type)
         return render_template('staff/vehicle_entry.html',slots=slots,user=user,vehicle=vehicle)
+    
+@app.route('/staff/vehicle_entry/confirm_entry',methods=['GET','POST'])
+def confirm_entry():
+    user=session.get('user')
+    if request.method=='GET':
+        vehicle_id=request.args.get('vehicle_id')
+        slot_id=request.args.get('slot_id')
+        vehicle=get_vehicle_by_id(vehicle_id)
+        slot=get_slot_by_id(slot_id)
+        return render_template('staff/confirm_entry.html',user=user,vehicle=vehicle,slot=slot)
+    else:
+
+        vehicle_id = request.form.get('vehicle_id', type=int)
+        slot_id = request.form.get('slot_id', type=int)
+
+        vehicle = get_vehicle_by_id(vehicle_id)
+        slot = get_slot_by_id(slot_id)
+
+        if vehicle is None or slot is None:
+            return "Vehicle or Slot not found"
+
+        
+        result = insert_parking_record(
+            vehicle['user_id'],
+            vehicle_id,
+            slot_id
+        )
+
+        if result == True:
+
+            
+            update_result = update_slot_status(slot_id)
+
+            if update_result == True:
+                return redirect(url_for('vehicle_entry'))
+
+            return "Parking record inserted but slot update failed"
+
+        return "Something went wrong while parking vehicle"
+    
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

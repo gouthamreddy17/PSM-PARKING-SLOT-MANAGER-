@@ -16,7 +16,9 @@
             <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
             <a class="nav-link text-nowrap" href="{url_for('vehicle_entry')}">Entry/Exit</a>
             <a class="nav-link text-nowrap" href="#">view Bookings</a>
-            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b class="text-nowrap">{{user['name']}}</b>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b class="text-nowrap">{% if user %}
+    <span>{{ user['name'] }}</span>
+{% endif %}</b>
             
 
 
@@ -89,7 +91,7 @@
             <p>{{i.slot_number}}</p>
             <p>{{i.vehicle_type}}</p>
             <p>{{i.status}}</p>
-            <a href="#"><button class="btn btn-danger"> Park Here</button></a>
+            <a href="{{url_for('confirm_entry',vehicle_id=vehicle.id,slot_id=i.id)}}"><button class="btn btn-danger"> Park Here</button></a>
         </div>
         {%  endfor %}
     </div>
