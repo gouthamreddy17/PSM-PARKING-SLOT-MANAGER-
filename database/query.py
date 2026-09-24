@@ -399,6 +399,140 @@ def update_slot_status(slot_id):
         print("Error updating slot:", e)
 
         return False
+def get_active_parking_record(vehicle_number):
+
+    connection = DatabaseConnection()
+
+    if connection == "Connection Failed":
+        return None
+
+    try:
+
+        cursor = connection.cursor(dictionary=True)
+
+        query = """
+            SELECT
+                pr.id AS record_id,
+                pr.vehicle_id,
+                pr.slot_id,
+                pr.entry_time,
+                pr.status,
+                v.vehicle_number,
+                v.vehicle_type,
+                ps.slot_number
+            FROM parking_records pr
+            JOIN vehicles v
+                ON pr.vehicle_id = v.id
+            JOIN parking_slots ps
+                ON pr.slot_id = ps.id
+            WHERE v.vehicle_number = %s
+            AND pr.status = 'Parked'
+            AND pr.exit_time IS NULL
+        """
+
+        cursor.execute(query, (vehicle_number,))
+
+        result = cursor.fetchone()
+
+        cursor.close()
+        connection.close()
+
+        return result
+
+    except Exception as e:
+
+        print("Something went wrong:", e)
+
+        return None
     
+        
+def update_vehicle_exit(record_id, slot_id, parking_fee, exit_time):
+
+    connection = DatabaseConnection()
+
+    if connection == "Connection Failed":
+        return False
+
+    try:
+
+        cursor = connection.cursor()
+
+        # Update parking record
+        query1 = """
+            UPDATE parking_records
+            SET exit_time = %s,
+                parking_fee = %s,
+                status = 'Exited'
+            WHERE id = %s
+            AND status = 'Parked'
+        """
+
+        cursor.execute(
+            query1,
+            (exit_time, parking_fee, record_id)
+        )
+
+        # Update parking slot
+        query2 = """
+            UPDATE parking_slots
+            SET status = 'Available'
+            WHERE id = %s
+            AND status = 'Occupied'
+        """
+
+        cursor.execute(
+            query2,
+            (slot_id,)
+        )
+
+        connection.commit()
+
+        cursor.close()
+        connection.close()
+
+        return True
+
+    except Exception as e:
+
+        connection.rollback()
+
+        print("Something went wrong:", e)
+
+        return False
+    
+    
+def get_parked_vehicles():
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            parked_vehicles_query="""SELECT
+                                    pr.id AS record_id,
+                                    pr.user_id,
+                                    pr.vehicle_id,
+                                    pr.slot_id,
+                                    v.vehicle_number,
+                                    v.vehicle_type,
+                                    ps.slot_number,
+                                    pr.entry_time,
+                                    pr.status
+                                FROM parking_records pr
+                                JOIN vehicles v
+                                    ON pr.vehicle_id = v.id
+                                JOIN parking_slots ps
+                                    ON pr.slot_id = ps.id
+                                WHERE pr.status = 'Parked'
+                                AND pr.exit_time IS NULL;"""
+                                
+            cursor.execute(parked_vehicles_query)
+            record=cursor.fetchall()
+            cursor.close()
+            connection.close()
+            return record
+
+        except Exception as e:
+            return f"somethinf went wrong in fething parked vehicles {e}"
         
     

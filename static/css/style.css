@@ -449,3 +449,27 @@ auto
     align-items: center;
     justify-content: space-evenly;
 }
+.results{
+    padding: 0px;
+    background-color: #ebebf1;
+    border-radius: 8px;
+}
+
+.background-tab{
+    background-color: #17c90e;
+}
+.backgroung-t {
+    background-color: #4383FF;
+    width: 100%;
+    min-width: 0;
+}
+.col-md-6 {
+    min-width: 0;
+}
+.form-control {
+    width: 100%;
+}
+.backgroung-t form {
+    width: 100%;
+    min-width: 0;
+}

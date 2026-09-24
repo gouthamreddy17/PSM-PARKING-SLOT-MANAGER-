@@ -1,6 +1,9 @@
 from database.connection import DatabaseConnection
 from flask import Flask,render_template,request,redirect,url_for,session
 from database.query import *
+from datetime import datetime
+import math
+
 app=Flask(__name__)
 
 app.secret_key = "psm_secret_key"
@@ -326,6 +329,70 @@ def confirm_entry():
             return "Parking record inserted but slot update failed"
 
         return "Something went wrong while parking vehicle"
-    
+
+
+@app.route('/staff/vehicle_exit',methods=['GET','POST'])
+def vehicle_exit():
+    user=session.get('user')
+    if request.method=='GET':
+        record=get_parked_vehicles()
+        print(record)
+        return render_template('staff/vehicle_exit.html',user=user,record=record)
+    else:
+        record=get_parked_vehicles()
+        vehicle_number=request.form.get('vehicle_number')
+        result=get_active_parking_record(vehicle_number)
+        if result is None:
+            return render_template('staff/vehicle_exit.html',user=user,msg='Vehicle is not parked',record=record)
+        
+        entry_time=result['entry_time']
+        exit_time=datetime.now()
+        duration=exit_time-entry_time
+        
+        total_seconds = duration.total_seconds()
+
+        total_minutes = int(total_seconds / 60)
+
+        hours = total_minutes // 60
+        minutes = total_minutes % 60
+        billable_hours = math.ceil(total_minutes / 60)
+        if result['vehicle_type']=='Bike':
+            rate=20
+        elif result['vehicle_type']=='Car':
+            rate=30
+        elif result['vehicle_type']=='Truck':
+            rate=50
+        parking_fee=billable_hours*rate
+        return render_template('staff/vehicle_exit.html',result=result,user=user,exit_time=exit_time,hours=hours,minutes=minutes,parking_fee=parking_fee,record=record)
+
+@app.route('/staff/vehicle_exit/confirm', methods=['POST'])
+def confirm_vehicle_exit():
+
+    user = session.get('user')
+
+    if not user:
+        return redirect(url_for('login'))
+
+    if user['role'] != 'staff':
+        return redirect(url_for('login'))
+
+    record_id = request.form.get('record_id', type=int)
+    slot_id = request.form.get('slot_id', type=int)
+    parking_fee = request.form.get('parking_fee', type=float)
+
+    exit_time = datetime.now()
+
+    result = update_vehicle_exit(
+        record_id,
+        slot_id,
+        parking_fee,
+        exit_time
+    )
+
+    if result == True:
+        return redirect(url_for('vehicle_exit'))
+
+    return "Something went wrong while confirming exit"
+
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

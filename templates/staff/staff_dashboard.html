@@ -14,7 +14,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
             <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
-            <a class="nav-link text-nowrap" href="{{url_for('vehicle_entry')}}">Entry/Exit</a>
+            <a class="nav-link text-nowrap" href="{{url_for('vehicle_entry')}}">Entry</a>
+            <a class="nav-link text-nowrap" href="{{url_for('vehicle_exit')}}">Exit</a>
             <a class="nav-link text-nowrap" href="#">view Bookings</a>
             <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b class="text-nowrap">{{user['name']}}</b>
             

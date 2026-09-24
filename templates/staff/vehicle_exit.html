@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}
+Staff Vehicle Exit
+{% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="{url_for('vehicle_entry')}">Entry/Exit</a>
+            <a class="nav-link text-nowrap" href="#">view Bookings</a>
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b
+                class="text-nowrap">{% if user %}
+                <span>{{ user['name'] }}</span>
+                {% endif %}</b>
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div>
+            <p class="welcome">Vehicle <span class="text-warning">Exit <span class="welcome">!</span> </span></p>
+            <p class="text-white ">Process vehicle Exit calculate parking fees and update slot status</p>
+            <p class="text-white ">Ensure smooth and acccurate parking management</p>
+
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-12   col-md-6" >
+            <div    >
+                <form action="{{url_for('vehicle_exit')}}" method="POST" class="d-flex flex-column  gap-4">
+                    <input type="text" placeholder="Enter Your vehicle Number" class="form-control"
+                        name="vehicle_number">
+                    <a href="#"><button type=submit class="btn btn-primary">search</button></a>
+                    {% if result %}
+                    <div class="results">
+                        
+                        <div class="d-flex"><b>Vehicle Number: </b>
+                            <p>{{result.vehicle_number}}</p>
+                        </div>
+                        <div class="d-flex"><b>Slot Number: </b>
+                            <p>{{result.slot_number}}</p>
+                        </div>
+                        <div class="d-flex"><b>Vehicle Type: </b>
+                            <p>{{result.vehicle_type}}</p>
+                        </div>
+                        <div class="d-flex"><b>Vehicle ID: </b>
+                            <p>{{result.record_id}}</p>
+                        </div>
+                        <div class="d-flex"><b>Entry Time: </b>
+                            <p>{{result.entry_time}}</p>
+                        </div>
+                        <div class="d-flex"><b>Exit Time: </b>
+                            <p>{{exit_time}}</p>
+                        </div>
+                        <div class="d-flex"><b>Duration: </b>
+                            <p>{{hours}} hours {{minutes}} minutes</p>
+                        </div>
+                        <div class="d-flex"><b>Parking Fee: </b><b class="text-danger">₹{{parking_fee}}</b></div>
+                        
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+            {% if result %}
+
+            <form action="{{ url_for('confirm_vehicle_exit') }}"
+                      method="POST">
+
+                    <input type="hidden"
+                           name="record_id"
+                           value="{{ result.record_id }}">
+
+                    <input type="hidden"
+                           name="slot_id"
+                           value="{{ result.slot_id }}">
+
+                    <input type="hidden"
+                           name="parking_fee"
+                           value="{{ parking_fee }}">
+
+                    <button type="submit"
+                            class="btn btn-success mt-3">
+                        Confirm Exit
+                    </button> 
+                    <a href="{{url_for('vehicle_exit')}}"><button class="btn btn-danger" type="button">Cancel</button></a>
+                    {% endif %}
+                </form>
+                
+                
+        </div>
+        <div class="col-12  col-md-6" >
+            <div class="background-tab">
+                {% if record %}
+                <table class="table table-striped">
+                    <tr class="table-striped">
+                        <th>Vehicle ID</th>
+                        <th>Vehicle NUmber</th>
+                        <th>Vehicle Type</th>
+                        <th>Slot Number</th>
+                        <th>Entry Time</th>
+                    </tr>
+                    {% for i in record %}
+                    <tr class="table-striped">
+                        <td>{{i.record_id}}</td>
+                        <td>{{i.vehicle_number}}</td>
+                        <td>{{i.vehicle_type}}</td>
+                        <td>{{i.slot_number}}</td>
+                        <td>{{i.entry_time}}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                    
+                </table>
+                {% endif %}
+            </div>
+
+            
+        </div>
+        
+        {% if msg %}
+                <p class="text-danger mt-3">
+                    {{ msg }}
+                </p>
+            {% endif %}
+    </div>
+
+
+</div>
+{% endblock %}
