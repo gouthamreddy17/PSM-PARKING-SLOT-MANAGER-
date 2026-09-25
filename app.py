@@ -390,7 +390,7 @@ def confirm_vehicle_exit():
         return redirect(url_for('vehicle_exit'))
 
     return "Something went wrong while confirming exit"
-@app.route('/user/user_dashboard')
+@app.route('/users/user_dashboard')
 def user_dashboard():
     user = session.get('user')
 
@@ -483,6 +483,18 @@ def register_vehicle():
         else:
             return render_template('/users/register_vehicle.html',user=user,msg="vehicle already registered")
     
-
+@app.route('/users/my_bookings')
+def my_bookings():
+    user=session.get('user')
+    user_id=user['id']
+    if not user:
+        return redirect(url_for('login'))
+    if user['role'] != 'user':
+        return redirect(url_for('login'))
+    result=get_parked_vehicles_by_user_id(user_id)
+    print(result)
+    record=get_exited_vehicles_by_user_id(user_id)
+    return render_template('users/my_bookings.html',user=user,result=result,record=record)
+    
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

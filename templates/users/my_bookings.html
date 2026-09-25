@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+ {% block title %}
+        My Bookings
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="#">Book a slot</a>
+            <a class="nav-link text-nowrap" href="#">My Bookings</a>
+            <a class="nav-link text-nowrap" href="#">Parking History</a>
+            
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b class="text-nowrap">{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">My <span class="text-warning">Bookings <span class="welcome">!</span> </span></p>
+            <p class="text-white ">View and track  all your parking slot bookings</p>
+            
+            
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+    
+</div>
+
+
+<div>
+        <div class="row">
+            <div class="col-12 col-md-6 col-sm-6">
+                <div class="p-2 mt-5">
+                    <center><b class="text-danger">My Bookings</b></center>
+                    <table class="table table-striped mt-4">
+                    <tr class="table-striped">
+                        <th>Record ID</th>
+                        <th>Vehicle ID</th>
+                        <th>Slot Number</th>
+                        <th>Vehicle NUmber</th>
+                        <th>Entry TIme</th>
+                        <th>Status</th>
+                    </tr>
+                    {% if result %}
+                    {% for i in result %}
+                    <tr class="table-striped">
+                        <td>{{i.record_id}}</td>
+                        <td>{{i.vehicle_id}}</td>
+                        <td>{{i.slot_number}}</td>
+                        <td>{{i.vehicle_number}}</td>
+                        <td>{{i.entry_time}}</td>
+                        <td>{{i.status}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <p>Currently no Vehicle is Parked</p>
+                    {% endif %}
+                </table>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-sm-6">
+                <div class="p-2 mt-5">
+                    <center><b class="text-danger">My parking History</b></center>
+                    <table class="table table-striped mt-4">
+                    <tr class="table-striped">
+                        <th>Record ID</th>
+                        <th>Vehicle ID</th>
+                        <th>Slot Number</th>
+                        <th>Vehicle NUmber</th>
+                        <th>Entry TIme</th>
+                        <th>Status</th>
+                    </tr>
+                    {% if record %}
+                    {% for i in record %}
+                    <tr class="table-striped">
+                        <td>{{i.record_id}}</td>
+                        <td>{{i.vehicle_id}}</td>
+                        <td>{{i.slot_number}}</td>
+                        <td>{{i.vehicle_number}}</td>
+                        <td>{{i.entry_time}}</td>
+                        <td>{{i.status}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <p>Currently no Vehicle is Parked</p>
+                    {% endif %}
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

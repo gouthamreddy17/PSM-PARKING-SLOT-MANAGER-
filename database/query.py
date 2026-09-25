@@ -567,3 +567,69 @@ def get_vehicle_details_by_user_id(user_id):
             return result
         except Exception as e:
             return f"something went wrong in getting vehicles by user_id  {e}"
+        
+        
+def get_parked_vehicles_by_user_id(user_id):
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            query="""SELECT
+                        pr.id AS record_id,
+                        pr.vehicle_id,
+                        pr.slot_id,
+                        pr.entry_time,
+                        pr.status,
+                        v.vehicle_number,
+                        v.vehicle_type,
+                        ps.slot_number
+                    FROM parking_records pr
+                    JOIN vehicles v
+                        ON pr.vehicle_id = v.id
+                    JOIN parking_slots ps
+                        ON pr.slot_id = ps.id
+                    WHERE pr.user_id = %s
+                    AND pr.status = 'Parked'
+                    AND pr.exit_time IS NULL;"""
+            cursor.execute(query,(user_id,))
+            result=cursor.fetchall()
+            cursor.close()
+            connection.close()
+            return result
+        except Exception as e:
+            return f"somthing went wrong in getting parked vehicles by user_id {e}"
+                
+def get_exited_vehicles_by_user_id(user_id):
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            query="""SELECT
+                        pr.id AS record_id,
+                        pr.vehicle_id,
+                        pr.slot_id,
+                        pr.entry_time,
+                        pr.status,
+                        v.vehicle_number,
+                        v.vehicle_type,
+                        ps.slot_number
+                    FROM parking_records pr
+                    JOIN vehicles v
+                        ON pr.vehicle_id = v.id
+                    JOIN parking_slots ps
+                        ON pr.slot_id = ps.id
+                    WHERE pr.user_id = %s
+                    AND pr.status = 'Exited'
+                    AND pr.exit_time IS not NULL;"""
+            cursor.execute(query,(user_id,))
+            record=cursor.fetchall()
+            cursor.close()
+            connection.close()
+            return record
+        except Exception as e:
+            return f"something went wrong in the get exited vehicles by user id {e}"    
+    
