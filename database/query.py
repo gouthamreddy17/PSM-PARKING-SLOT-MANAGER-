@@ -535,4 +535,35 @@ def get_parked_vehicles():
         except Exception as e:
             return f"somethinf went wrong in fething parked vehicles {e}"
         
-    
+def register_vehicle_into_db(user_id,vehicle_number,vehicle_type):
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            register_vehicle_query="""insert into vehicles (user_id,vehicle_number,vehicle_type)
+                                        values (%s,%s,%s)"""
+            cursor.execute(register_vehicle_query,(user_id,vehicle_number,vehicle_type))
+            connection.commit()
+            cursor.close()
+            connection.close()
+            return True
+        except Exception as e:
+            return f"something went wrong in register vehicle {e}"
+
+def get_vehicle_details_by_user_id(user_id):
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            query="""select u.name,u.phone,ve.vehicle_number,ve.vehicle_type,ve.created_at from users u join vehicles ve on u.id=ve.user_id where user_id=%s"""
+            cursor.execute(query,(user_id,))
+            result=cursor.fetchall()
+            cursor.close()
+            connection.close()
+            return result
+        except Exception as e:
+            return f"something went wrong in getting vehicles by user_id  {e}"

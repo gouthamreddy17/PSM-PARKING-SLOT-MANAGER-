@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+ {% block title %}
+        Register a vehicle
+        {% endblock %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">PSM    </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
+            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
+            <a class="nav-link text-nowrap" href="#">Book a slot</a>
+            <a class="nav-link text-nowrap" href="#">My Bookings</a>
+            <a class="nav-link text-nowrap" href="#">Parking History</a>
+            
+            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b class="text-nowrap">{{user['name']}}</b>
+            
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="admin-hero">
+    <div class="d-flex justify-content-between">
+        <div >
+            <p class="welcome">Register a <span class="text-warning">Vehicle <span class="welcome">!</span> </span></p>
+            <p class="text-white ">Add yout vehicle details to use  for parking slot bookings</p>
+            <p class="text-white ">You can register multiple vehicles and manage them here.</p>
+            
+        </div>
+        <div class="">
+            <h3 class="text-white">PARK SMART</h3>
+            <h3 class="text-white">PARK BETTER</h3>
+            <h3 class="text-white">WITH PSM</h3>
+            <hr class="hr1">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-6 col-sm-6">
+        <div class="p-4">
+            <div>
+                {% if msg %}
+                <p class="text-danger">{{msg}}</p>
+                {% endif %}
+            </div>
+            <b class="p-2">Register a vehicle</b>
+            <form action="{{url_for('register_vehicle')}}" method="POST">
+            <input type="text" placeholder="Enter your vehicle Number eg:(XX00XX1234)" name="vehicle_number" class="form-control mb-4 mt-2">
+            <select name="vehicle_type" id="vehicle_type" class="form-select mb-3">
+                <option value="Bike">Bike</option>
+                <option value="Car">Car</option>
+                <option value="Truck">Truck</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Register a vehicle</button>
+            <a href="{{url_for('user_vehicle_entry')}}"><button type="button" class="btn btn-secondary">Back to vechile Entry</button></a>
+        </form>
+        </div>
+
+    </div>
+    <div class="col-12 col-md-6 col-sm-6">
+        <div class="p-4">
+            <center><b class="fs-5 text-success">Your Registerd vehicles</b></center>
+            <table class="table table-striped mt-3">
+            <tr class="table-striped">
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Vehicle Number</th>
+                <th>Vehicle Type</th>
+                <th>Created at</th>
+            </tr>
+            {% if result %}
+            {% for i in result %}
+            <tr class="table-striped">
+                <td>{{i.name}}</td>
+                <td>{{i.phone}}</td>
+                <td>{{i.vehicle_number}}</td>
+                <td>{{i.vehicle_type}}</td>
+                <td>{{i.created_at}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <p>Vehicles not registerd</p>
+            {% endif %}
+        </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

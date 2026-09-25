@@ -460,7 +460,29 @@ def user_confirm_entry():
             return "Parking record inserted but slot update failed"
 
         return "Something went wrong whille parking slots in user"
-
+@app.route('/useres/register_vehicle',methods=['GET','POST'])
+def register_vehicle():
+    user=session.get('user')
+    user_id=user['id']
+    if not user:
+        return redirect(url_for('login'))
+    if user['role'] != 'user':
+        return redirect(url_for('login'))
+    print(user['id'])
+    result=get_vehicle_details_by_user_id(user_id)
+    print(result)
+    if request.method=='GET':
+        
+        return render_template('users/register_vehicle.html',user=user,result=result)
+    else:
+        vehicle_number=request.form.get('vehicle_number')
+        vehicle_type=request.form.get('vehicle_type')
+        result=register_vehicle_into_db(user_id,vehicle_number,vehicle_type)
+        if result==True:
+            return render_template('users/register_vehicle.html',user=user,msg="registered sucessfully")
+        else:
+            return render_template('/users/register_vehicle.html',user=user,msg="vehicle already registered")
+    
 
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
