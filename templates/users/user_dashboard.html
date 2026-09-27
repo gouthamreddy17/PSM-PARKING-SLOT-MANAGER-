@@ -13,18 +13,24 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav gap-3 d-flex align-items-center pe-3">
-            <a class="nav-link active links" aria-current="page" href="#">Dashboard</a>
-            <a class="nav-link text-nowrap" href="#">Book a slot</a>
-            <a class="nav-link text-nowrap" href="#">My Bookings</a>
-            <a class="nav-link text-nowrap" href="#">Parking History</a>
+            <a class="nav-link active links" aria-current="page" href="{{url_for('user_dashboard')}}">Dashboard</a>
+            <a class="nav-link active links text-nowrap" aria-current="page" href="{{url_for('register_vehicle')}}">Register a Vehicle</a>
+            <a class="nav-link text-nowrap" href="{{url_for('user_vehicle_entry')}}">Book a slot</a>
+            <a class="nav-link text-nowrap" href="{{url_for('my_bookings')}}">My Bookings</a>
+           
             
-            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b class="text-nowrap">{{user['name']}}</b>
             
-
-
-
-
-
+            <div class="dropdown ">
+  <button class="btn dropdown-toggle   d-flex align-items-center justify-content-center gap-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-user fa-2xl fa-width-auto profile-icon" style="color: rgb(1, 0, 8);"></i><span class="text-nowrap  text-black">{{user['name']}}</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="{{url_for('profile')}}"><i class="fa-solid fa-circle-user fa-lg" style="color: rgb(2, 12, 26);"></i> Profile</a></li>
+    <li><a class="dropdown-item" href="{{url_for('logout')}}"><i class="fa-solid fa-arrow-right-from-bracket fa-lg" style="color: rgb(2, 12, 26);"></i>Logout</a></li>
+    
+  </ul>
+</div>
+            
 
 
         </div>

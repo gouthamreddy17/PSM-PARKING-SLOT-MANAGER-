@@ -15,6 +15,7 @@ body{
     justify-content: space-between;
     margin: 10px 14px;
     border-radius: 8px;
+    padding: 0px;
 }
 
 .links:hover{
@@ -472,4 +473,58 @@ auto
 .backgroung-t form {
     width: 100%;
     min-width: 0;
+}
+
+.profile-icon{
+    background-color: white;
+    padding: 9px;
+    border-radius: 50%;
+}
+
+.back-col{
+
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+    justify-content: center;
+    
+}
+.font-siz{
+    font-size: 100px;
+}
+
+.prof-back{
+    background-color: #e9e9f4;
+    padding: 20px 60px;
+    border-radius: 9px;
+
+}
+
+.envolop{
+    padding: 20px;
+    background-color: #b3bee4;
+    border-radius: 40%;
+}
+
+.ev2{
+    padding: 20px;
+    background-color: #b3e4b4;
+    border-radius: 40%;
+    margin-right: 14px;
+}
+
+.ev3{
+    padding: 20px;
+    background-color: #e4b3b3;
+    border-radius: 40%;
+    margin-right: 10px;
+
+}
+
+.logout{
+    width: 200px;
+    height: 40px;
 }

@@ -396,7 +396,7 @@ def user_dashboard():
 
     if not user:
         return redirect(url_for('login'))
-
+    print("DASHBOARD USER:", user)
     if user['role'] != 'user':
         return redirect(url_for('login'))
     return render_template('users/user_dashboard.html',user=user)
@@ -486,15 +486,33 @@ def register_vehicle():
 @app.route('/users/my_bookings')
 def my_bookings():
     user=session.get('user')
-    user_id=user['id']
+    
     if not user:
         return redirect(url_for('login'))
     if user['role'] != 'user':
         return redirect(url_for('login'))
+    user_id=user['id']
     result=get_parked_vehicles_by_user_id(user_id)
     print(result)
     record=get_exited_vehicles_by_user_id(user_id)
     return render_template('users/my_bookings.html',user=user,result=result,record=record)
+@app.route('/logout')
+def logout():
+    print("BEFORE CLEAR:", session.get('user'))
+    session.clear()
+    print("AFTER CLEAR:", session.get('user'))
+    return redirect(url_for('home'))
+
+@app.route('/users/profile')
+def profile():
+    user=session.get('user')
+    
+    if not user:
+        return redirect(url_for('login'))
+    if user['role'] != 'user':
+        return redirect(url_for('login'))
+    return render_template('/users/profile.html',user=user)
+    
     
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
