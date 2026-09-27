@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar1">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('home')}}">PSM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav gap-3">
+            <a class="nav-link active links" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="{{url_for('about')}}">About</a>
+            <a class="nav-link" href="#">Features</a>
+            
+            <a class="nav-link" href="{{url_for('login')}}"><button class="text-nowrap btn btn-warning">LOGIN</button></a>
+            <a class="nav-link " href="{{url_for('signup')}}"><button class="text-nowrap btn btn-warning"> SIGN UP</button></a>
+
+
+
+
+
+
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="hero">
+    <p class="welcome">About <span class="text-warning">PSM</span></p>
+    <p class="fs-5 text-white">PSM is a smart parking slot management system designed to </p>
+        <p class="fs-5 text-white">make parking easier, faster, and more organized.</p> <p class="fs-5 text-white">It helps users book parking slots, manage vehicle entries and exits,</p> <p class="fs-5 text-white">and ensures better utilization of parking spaces.</p>
+    
+    
+</div>
+<div>
+    <div class="row mt-3 ms-2 me-2">
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-car">
+            <div><i class="fa-solid fa-car fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i></div>
+            <div class="ps-2">
+                <b>Smart Parking Solution</b>
+                
+                <p>Manage parking spaces efficiently with a simple digital platform.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-ava">
+            <div><i class="fa-solid fa-square-parking fa-2xl fa-width-auto" style="color: rgb(47, 239, 17);"></i></div>
+            <div class="ps-2">
+                
+                <b>Easy to Use</b>
+                <p>Simple booking and management for users and parking staff.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-occ">
+            <div><i class="fa-solid fa-car fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i></div>
+            <div class="ps-2">
+                
+                <b>Real-Time Management</b>
+                <p>Track slot availability, vehicle entries, exits, and parking records.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3">
+        <div class="back-users">
+            <div><i class="fa-solid fa-users fa-xl fa-width-auto" style="color: rgb(239, 17, 97);"></i></div>
+            <div class="ps-2">
+                
+                <b>Secure & Reliable</b>
+                <p>Keep parking information organized and accessible when needed.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

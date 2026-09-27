@@ -19,7 +19,16 @@
             <a class="nav-link" href="{{url_for('manage_users')}}">Users</a>
             <a class="nav-link" href="{{url_for('manage_staff')}}">Staff</a>
             <a class="nav-link" href="{{url_for('reports')}}">Reports</a>
-            <i class="fa-solid fa-user fa-2xl fa-width-auto" style="color: rgb(92, 91, 101);"></i><b>{{user['name']}}</b>
+            
+
+             <div class="dropdown ">
+  <button class="btn dropdown-toggle   d-flex align-items-center justify-content-center gap-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fa-solid fa-user fa-2xl fa-width-auto profile-icon" style="color: rgb(1, 0, 8);"></i><span class="text-nowrap  text-black">{{user['name']}}</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-circle-user fa-lg" style="color: rgb(2, 12, 26);"></i> Profile</a></li>
+    <li><a class="dropdown-item" href="{{url_for('logout')}}"><i class="fa-solid fa-arrow-right-from-bracket fa-lg" style="color: rgb(2, 12, 26);"></i>Logout</a></li>
+    
             
 
 

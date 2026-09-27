@@ -134,6 +134,22 @@ def get_users_from_db():
             return result
         except Exception as e:
             return f"somthing went wrong in gettting users {e}"
+        
+def get_all_users_from_db():
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            get_users_query="""select * from users"""
+            cursor.execute(get_users_query)
+            result=cursor.fetchall()
+            cursor.close()
+            connection.close()
+            return result
+        except Exception as e:
+            return f"somthing went wrong in gettting users {e}"
 def get_user_by_id(id):
     connection=DatabaseConnection()
     if connection=="Connection Failed":

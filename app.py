@@ -26,7 +26,14 @@ def signup():
         password=request.form.get('password')
         phone=request.form.get('phone')
         confirmpassword=request.form.get('confirmpassword')
-        
+        record=get_users_from_db()
+        for i in record:
+            if i['email']==email:
+                msg="Email Already Exists"
+                return render_template('signup.html',msg=msg)
+            if i['phone']==phone:
+                msg="Phone Number already exist"
+                return render_template('signup.html',msg=msg)
         if password !=confirmpassword:
             return render_template('signup.html',msg="password not match")
         result,msg=insertusersfromsignup(name=name,email=email,password=password,phone=phone)
@@ -43,6 +50,16 @@ def login():
     else:
         email=request.form.get('email')
         password=request.form.get('password')
+        
+        record=get_all_users_from_db()
+        found=False
+        for i in record:
+            if i['email']==email:
+                found=True
+                break
+        if found==False:
+            msg=f"{email} is not registered"
+            return render_template('login.html',msg=msg)
         result,msg,user=selectusersforlogin(email=email,password=password)
         if result==True:
             session['user']=user
@@ -58,7 +75,9 @@ def login():
             return render_template('login.html',msg=msg)
 
         
-        
+@app.route('/about')
+def about():
+    return render_template('about.html')   
         
         
 
