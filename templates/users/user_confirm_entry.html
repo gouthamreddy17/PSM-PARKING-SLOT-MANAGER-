@@ -57,16 +57,21 @@
 
 
 <div>
-    <div>
-        <h2>Confirm vehicle entry</h2>
+    <div class="d-flex flex-column align-items-center justify-content-center">
+        <h5>Confirm vehicle entry</h5>
 
-        <b>Vehicle Number:   {{vehicle.vehicle_number}}</b>
-        <b> vehicle Type : {{vehicle.vehicle_type}}</b>
         
-        <b>Parking Slot:   {{slot.slot_number}}</b>
-        
-    </div>
-    <form action="{{ url_for('user_confirm_entry') }}" method="POST">
+        <table class="table table-striped delete-tab">
+            <tr>
+                <th>Vehicle Number</th>
+                <td>{{vehicle.vehicle_number}}</td>
+            </tr>
+            <tr>
+                <th>Vehicle Type</th>
+                <td>{{vehicle.vehicle_type}}</td>
+            </tr>
+        </table>
+        <form action="{{ url_for('user_confirm_entry') }}" method="POST">
 
         <input type="hidden"
                name="vehicle_id"
@@ -86,5 +91,8 @@
         </a>
 
     </form>
+        
+    </div>
+    
 </div>
 {% endblock %}

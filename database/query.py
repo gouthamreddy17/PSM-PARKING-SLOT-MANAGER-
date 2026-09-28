@@ -648,4 +648,21 @@ def get_exited_vehicles_by_user_id(user_id):
             return record
         except Exception as e:
             return f"something went wrong in the get exited vehicles by user id {e}"    
+
+def get_only_parked_vehicles():
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            query="""select * from parking_records where status ='Parked'"""
+            cursor.execute(query)
+            record=cursor.fetchall()
+            cursor.close()
+            connection.close()
+            return record
+        except Exception as e:
+            f"something went wrong in get_only_parked_vehicles {e}"
+            
     

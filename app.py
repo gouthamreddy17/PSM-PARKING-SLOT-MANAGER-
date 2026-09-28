@@ -423,7 +423,8 @@ def user_dashboard():
 @app.route('/user/user_vehicle_entry',methods=['GET','POST'])
 def user_vehicle_entry():
     user=session.get('user')
-    
+    user_id=user['id']
+    print(user_id)
     if not user:
         return redirect(url_for('login'))
     if user['role'] != 'user':
@@ -435,8 +436,18 @@ def user_vehicle_entry():
         vehicle_type=request.form.get('vehicle_type')
         
         vehicle=get_vehicle_by_number(vehicle_number)
+        record=get_only_parked_vehicles()
+        print(record)
+        found=False
+        for i in record:
+            if i['user_id']==user_id and i['status']=="Parked":
+                found=True
+                break
         if vehicle is None:
             return render_template('users/user_vehicle_entry.html',user=user,msg="Vehicle Not registerd Plese register the vehicle first") 
+        if found==True:
+            return render_template('users/user_vehicle_entry.html',user=user,msg="Vehicle already in parking")
+        
         slots=get_parking_slots_by_type(vehicle_type)
         return render_template('users/user_vehicle_entry.html',slots=slots,user=user,vehicle=vehicle)
 
