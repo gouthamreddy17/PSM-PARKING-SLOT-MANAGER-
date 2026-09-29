@@ -16,6 +16,10 @@ body{
     margin: 10px 14px;
     border-radius: 8px;
     padding: 0px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
 }
 
 .links:hover{
@@ -32,7 +36,7 @@ body{
     padding-left: 20px;
     padding-top: 30px;
     height: 400px;
-    margin: 10px 14px;
+    margin: 80px 14px;
     border-radius: 8px;
 }
 .welcome{
@@ -534,4 +538,17 @@ auto
 .logout{
     width: 200px;
     height: 40px;
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #abc7ff;
+    padding: 10px;
+    width: 100%;
+    position: static;
+    
+    margin-top: 70px;
 }

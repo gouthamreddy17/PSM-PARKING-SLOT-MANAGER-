@@ -665,4 +665,19 @@ def get_only_parked_vehicles():
         except Exception as e:
             f"something went wrong in get_only_parked_vehicles {e}"
             
+def get_search_user(name):
+    connection=DatabaseConnection()
+    if connection=="Connection Failed":
+        return "connection Failed"
+    else:
+        try:
+            cursor=connection.cursor(dictionary=True)
+            query="""select * from users where name like %s and role='user'"""
+            cursor.execute(query,(f"%{name}%",))
+            result=cursor.fetchall()
+            cursor.close()
+            connection.close()
+            return result
+        except Exception as e:
+            return f"something went wrong in search users"
     

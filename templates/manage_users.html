@@ -51,7 +51,18 @@
     </div>
 </div>
 <div>
-    <div class="d-flex  flex-column align-items-center justify-content-center p-5 user-re">
+    <div class="d-flex justify-content-center align-items-center bg-body-secondary m-3">
+        <div class="d-flex  align-items-center gap-5 m-2">
+            <form action="{{url_for('manage_users')}}" method="POST"  class="d-flex gap-5 bg-white p-3 rounded-3">
+            <input type="text" placeholder="Enter user name to search" name="user_name" class="form-control">
+            <button class="btn btn-primary" type="submit">Search</button>
+            <a href="{{url_for('manage_users')}}"><button type="button" class="btn btn-danger">Reset</button></a>
+        </form>
+        <div class="d-flex gap-5 bg-white p-3 rounded-3" ><a href="{{url_for('register_user')}}"><button class="btn btn-success">+ Register User</button></a></div>
+        </div>
+    </div>
+    <div class="d-flex  flex-column align-items-center justify-content-center p-5 user-">
+        
         <table class="table table-striped   delete-tab">
             <tr>
                 <th>ID</th>
@@ -79,10 +90,12 @@
                 </td>
             </tr>
             {% endfor %}
-            <div class="user-ab" ><a href="{{url_for('register_user')}}"><button class="btn btn-success">+ Register User</button></a></div>
+            
         </table>
         
     </div>
-
+<div>
+    
+</div>
 </div>
 {% endblock %}

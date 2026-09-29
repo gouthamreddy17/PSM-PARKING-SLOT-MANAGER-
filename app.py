@@ -141,12 +141,23 @@ def delete_slot(id):
         else:
             slot=get_slot_by_id(id)
             return render_template('delete_slot.html',slot=slot,user=user,msg=msg)
-@app.route('/admin/manage_users')
+@app.route('/admin/manage_users',methods=['GET','POST'])
 def manage_users():
     user=session.get('user')
-    result=get_users_from_db()
-    print(result)
-    return render_template('manage_users.html',user=user,result=result)
+    if not user:
+        return redirect(url_for('login'))
+    if user['role'] != 'admin':
+        return redirect(url_for('login'))
+    if request.method=='GET':
+        result=get_users_from_db()
+        print(result)
+        return render_template('manage_users.html',user=user,result=result)
+    else:
+        user_name=request.form.get('user_name')
+        result= get_search_user(user_name)
+        return render_template('manage_users.html',user=user,result=result)
+        
+    
 
 @app.route('/admin/manage_users/register_user',methods=['GET','POST'])
 def register_user():
@@ -543,6 +554,7 @@ def profile():
         return redirect(url_for('login'))
     return render_template('/users/profile.html',user=user)
     
+
     
 if __name__=="__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
